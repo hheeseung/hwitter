@@ -31,8 +31,9 @@ export default function ResetPassword() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+    if (email === "") return;
     try {
-      if (!email) return;
       await resetPassword(email);
       alert("Your mail has been sent successfully.");
     } catch (error) {

@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Switcher = styled.div`
+  font-weight: 600;
   color: #1877f2;
   cursor: pointer;
 `;
@@ -50,7 +51,7 @@ export default function ResetPassword() {
           onChange={onChange}
           value={email}
           type="email"
-          placeholder="email"
+          placeholder="Email"
           required
         />
         <Input type="submit" value="Reset" />

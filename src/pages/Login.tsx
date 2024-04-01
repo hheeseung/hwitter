@@ -30,8 +30,9 @@ export default function Login() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+    if (form.email === "" || form.password === "") return;
     try {
-      if (!form.email || !form.password) return;
       await login(form);
       navigate("/");
     } catch (error) {

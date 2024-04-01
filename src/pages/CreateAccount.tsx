@@ -31,8 +31,9 @@ export default function CreateAccount() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+    if (form.name === "" || form.email === "" || form.password === "") return;
     try {
-      if (!form.name || !form.email || !form.password) return;
       await createUser(form);
       navigate("/");
     } catch (error) {

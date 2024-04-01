@@ -7,9 +7,10 @@ import CreateAccount from "./pages/CreateAccount";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "./services/firebase";
 import ResetPassword from "./pages/ResetPassword";
+import Loading from "./components/Loading";
 
 const router = createBrowserRouter([
   {
@@ -56,8 +57,11 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   const init = async () => {
     await auth.authStateReady();
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -67,7 +71,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <RouterProvider router={router} />
+      {isLoading ? <Loading /> : <RouterProvider router={router} />}
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
+  User,
   createUserWithEmailAndPassword,
   getAuth,
   sendPasswordResetEmail,
@@ -8,8 +9,13 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export type UserInfo = {
   name: string;
@@ -20,6 +26,12 @@ export type UserInfo = {
 export type LoginForm = {
   email: string;
   password: string;
+};
+
+type Post = {
+  user: User;
+  post: string;
+  file?: File | null;
 };
 
 const firebaseConfig = {
@@ -67,4 +79,24 @@ export function logout() {
 
 export async function resetPassword(email: string) {
   await sendPasswordResetEmail(auth, email);
+}
+
+export async function addPost({ user, post, file }: Post) {
+  if (!user || post === "" || post.length > 300) return;
+
+  const doc = await addDoc(collection(db, "posts"), {
+    post,
+    createdAt: Date.now(),
+    username: user.displayName || "Anonymous",
+    userId: user.uid,
+  });
+
+  if (file) {
+    const locationRef = ref(storage, `posts/${user.uid}/${doc.id}`);
+    const result = await uploadBytes(locationRef, file);
+    const url = await getDownloadURL(result.ref);
+    await updateDoc(doc, { photo: url });
+  }
+
+  return doc;
 }

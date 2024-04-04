@@ -11,18 +11,22 @@ const ProfileCard = styled.div`
   align-items: center;
   background-color: white;
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 `;
 
 const ProfileIcon = styled.svg`
   width: 45px;
-  margin-right: 10px;
+  margin-right: 5px;
   fill: #1877f2;
 `;
 
-const ProfileImg = styled.img``;
+const ProfileImg = styled.img`
+  width: 45px;
+  margin-right: 5px;
+  border-radius: 10px;
+`;
 
 const UserInfo = styled.div`
   display: flex;
@@ -53,7 +57,7 @@ const Navbar = styled.ul`
 const NavItem = styled.li`
   display: flex;
   align-items: center;
-  padding: 20px 20px 20px 0;
+  padding: 15px 15px 15px 0;
   border-bottom: 1px solid #e6e6e6;
   &:nth-child(4) {
     border-bottom: none;
@@ -78,6 +82,17 @@ const Title = styled.span`
   color: ${(props) => props.color || "slategray"};
 `;
 
+const LogoutIcon = styled.svg`
+  width: 25px;
+  margin-right: 10px;
+  color: #ff4154;
+`;
+
+const Logout = styled.span`
+  font-weight: 600;
+  color: #ff4154;
+`;
+
 export default function Sidebar() {
   const user = auth.currentUser;
   const { pathname } = useLocation();
@@ -93,19 +108,22 @@ export default function Sidebar() {
   return (
     <Wrapper>
       <ProfileCard>
-        {/* <ProfileImg src={} /> */}
-        <ProfileIcon
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path
-            clipRule="evenodd"
-            fillRule="evenodd"
-            d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z"
-          />
-        </ProfileIcon>
+        {user && user.photoURL ? (
+          <ProfileImg src={user.photoURL} alt="profile" />
+        ) : (
+          <ProfileIcon
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              clipRule="evenodd"
+              fillRule="evenodd"
+              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z"
+            />
+          </ProfileIcon>
+        )}
         <UserInfo>
           <Username>{user?.displayName}</Username>
           <UserId>{user?.email}</UserId>
@@ -170,7 +188,7 @@ export default function Sidebar() {
           </NavItem>
         </Link>
         <NavItem onClick={onLogOut}>
-          <Icon
+          <LogoutIcon
             fill="none"
             strokeWidth={1.5}
             stroke="currentColor"
@@ -183,8 +201,8 @@ export default function Sidebar() {
               strokeLinejoin="round"
               d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
             />
-          </Icon>
-          <Title>Logout</Title>
+          </LogoutIcon>
+          <Logout>Logout</Logout>
         </NavItem>
       </Navbar>
     </Wrapper>

@@ -35,13 +35,14 @@ export const Input = styled.input`
   padding: 15px;
   border: none;
   border-radius: 10px;
-  background-color: #f6f7f9;
+  background-color: white;
   outline: none;
   font-size: 15px;
   font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
   margin-bottom: 10px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   &:last-child {
     font-size: 16px;
     cursor: pointer;

@@ -8,6 +8,8 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 export type UserInfo = {
   name: string;
@@ -31,7 +33,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 export async function createUser({ name, email, password }: UserInfo) {
   const credential = await createUserWithEmailAndPassword(
@@ -50,14 +55,14 @@ export async function login({ email, password }: LoginForm) {
   if (!user) return;
 }
 
-export function logout() {
-  auth.signOut().catch(console.error);
-}
-
 export async function googleLogin() {
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
   await signInWithPopup(auth, provider).catch(console.error);
+}
+
+export function logout() {
+  auth.signOut().catch(console.error);
 }
 
 export async function resetPassword(email: string) {

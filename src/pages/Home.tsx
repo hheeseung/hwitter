@@ -1,12 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import { logout } from "../services/firebase";
+import PostForm from "../components/PostForm";
 
 export default function Home() {
-  const navigate = useNavigate();
-  const onLogOut = async () => {
-    await logout();
-    navigate("/login");
-  };
-
-  return <button onClick={onLogOut}>logout</button>;
+  return <PostForm />;
 }

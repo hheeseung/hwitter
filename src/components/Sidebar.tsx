@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { auth, logout } from "../services/firebase";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Wrapper = styled.section`
+const Wrapper = styled.aside`
+  width: 30%;
   margin-right: 20px;
 `;
 

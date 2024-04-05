@@ -4,8 +4,7 @@ import Sidebar from "./Sidebar";
 import styled from "styled-components";
 
 const Section = styled.section`
-  display: grid;
-  grid-template-columns: 1fr 4fr;
+  display: flex;
   padding: 20px 0;
 `;
 

@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
+  Unsubscribe,
   User,
   createUserWithEmailAndPassword,
   getAuth,
@@ -13,6 +15,10 @@ import {
   addDoc,
   collection,
   getFirestore,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
   updateDoc,
 } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -30,8 +36,18 @@ export type LoginForm = {
 
 type Post = {
   user: User;
-  post: string;
+  post?: string;
   file?: File | null;
+};
+
+export type TimelinePost = {
+  post: string;
+  createdAt: number;
+  userId: string;
+  username: string;
+  photo?: string;
+  id: string;
+  profileImg?: string;
 };
 
 const firebaseConfig = {
@@ -82,13 +98,12 @@ export async function resetPassword(email: string) {
 }
 
 export async function addPost({ user, post, file }: Post) {
-  if (!user || post === "" || post.length > 300) return;
-
   const doc = await addDoc(collection(db, "posts"), {
     post,
     createdAt: Date.now(),
     username: user.displayName || "Anonymous",
     userId: user.uid,
+    profileImg: user.photoURL || null,
   });
 
   if (file) {
@@ -99,4 +114,32 @@ export async function addPost({ user, post, file }: Post) {
   }
 
   return doc;
+}
+
+export function getPosts(setPosts: any) {
+  let unsubscribe: Unsubscribe | null = null;
+  const postsQuery = query(
+    collection(db, "posts"),
+    orderBy("createdAt", "desc"),
+    limit(30)
+  );
+
+  unsubscribe = onSnapshot(postsQuery, (snapshot) => {
+    const posts = snapshot.docs.map((doc) => {
+      const { post, createdAt, userId, username, photo, profileImg } =
+        doc.data();
+      return {
+        post,
+        createdAt,
+        userId,
+        username,
+        photo,
+        id: doc.id,
+        profileImg,
+      };
+    });
+    setPosts(posts);
+  });
+
+  return unsubscribe;
 }

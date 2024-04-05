@@ -45,7 +45,7 @@ const TextArea = styled.textarea`
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   margin-top: 10px;
 `;
 
@@ -64,8 +64,8 @@ const Input = styled.input`
 `;
 
 const SubmitButton = styled.button`
-  padding: 10px 20px;
-  font-size: large;
+  padding: 10px 15px;
+  font-size: 15px;
   outline: none;
   border: none;
   background-color: #1877f2;
@@ -97,7 +97,7 @@ export default function PostForm() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!user || isLoading) return;
+    if (!user || post === "" || post.length > 300) return;
 
     try {
       setIsLoading(true);

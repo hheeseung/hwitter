@@ -69,7 +69,7 @@ const Text = styled.p`
 `;
 
 const AttachedImg = styled.img`
-  width: 500px;
+  width: 100%;
   border-radius: 10px;
 `;
 

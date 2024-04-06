@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
+import Social from "./Social";
 
 const Section = styled.section`
   display: flex;
@@ -15,6 +16,7 @@ export default function Layout() {
       <Section>
         <Sidebar />
         <Outlet />
+        <Social />
       </Section>
     </>
   );

@@ -3,7 +3,7 @@ import PostForm from "../components/PostForm";
 import Timeline from "../components/Timeline";
 
 const Wrapper = styled.section`
-  width: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
 `;

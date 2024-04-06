@@ -1,81 +1,17 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { addPost, auth } from "../services/firebase";
-
-const Form = styled.form`
-  width: 100%;
-  height: fit-content;
-  background-color: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  align-items: start;
-`;
-
-const ProfileImg = styled.img`
-  width: 50px;
-  border-radius: 10px;
-  margin-right: 10px;
-`;
-
-const ProfileIcon = styled.svg`
-  width: 50px;
-  fill: #1877f2;
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: 15px;
-  outline: none;
-  border: none;
-  background-color: #eff4fc;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  resize: none;
-  font-size: 18px;
-  font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-    sans-serif;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 10px;
-`;
-
-const AttachImgButton = styled.label`
-  margin-right: 10px;
-`;
-
-const Icon = styled.svg`
-  width: 30px;
-  color: #1877f2;
-  cursor: pointer;
-`;
-
-const Input = styled.input`
-  display: none;
-`;
-
-const SubmitButton = styled.button`
-  padding: 10px 15px;
-  font-size: 15px;
-  outline: none;
-  border: none;
-  background-color: #1877f2;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  &:hover {
-    filter: brightness(1.1);
-  }
-`;
+import {
+  AttachImgButton,
+  Container,
+  Form,
+  FormContainer,
+  Icon,
+  Input,
+  ProfileIcon,
+  ProfileImg,
+  SubmitButton,
+  TextArea,
+} from "./PostFormComponent";
 
 export default function PostForm() {
   const user = auth.currentUser;

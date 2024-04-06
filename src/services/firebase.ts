@@ -14,6 +14,8 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getFirestore,
   limit,
   onSnapshot,
@@ -21,7 +23,13 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 
 export type UserInfo = {
   name: string;
@@ -38,6 +46,19 @@ type Post = {
   user: User;
   post?: string;
   file?: File | null;
+  id?: string;
+};
+
+type UpdatePost = {
+  postId: string;
+  userId: string;
+  newPost: string;
+};
+
+type DeletePost = {
+  userId: string;
+  id: string;
+  photo?: string;
 };
 
 export type TimelinePost = {
@@ -142,4 +163,26 @@ export function getPosts(setPosts: any) {
   });
 
   return unsubscribe;
+}
+
+export async function updatePost({ postId, newPost }: UpdatePost) {
+  const postRef = doc(db, "posts", postId);
+
+  const updateData = {
+    post: newPost,
+  };
+
+  await updateDoc(postRef, updateData);
+}
+
+export async function deletePost({ userId, id, photo }: DeletePost) {
+  try {
+    await deleteDoc(doc(db, "posts", id));
+    if (photo) {
+      const photoRef = ref(storage, `posts/${userId}/${id}`);
+      await deleteObject(photoRef);
+    }
+  } catch (error) {
+    console.error;
+  }
 }

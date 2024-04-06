@@ -19,8 +19,11 @@ const ProfileCard = styled.div`
 
 const ProfileIcon = styled.svg`
   width: 45px;
-  margin-right: 5px;
+  padding: 5px;
   fill: #1877f2;
+  background-color: #eff4fc;
+  border-radius: 10px;
+  margin-right: 10px;
 `;
 
 const ProfileImg = styled.img`
@@ -118,11 +121,7 @@ export default function Sidebar() {
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
-            <path
-              clipRule="evenodd"
-              fillRule="evenodd"
-              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z"
-            />
+            <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
           </ProfileIcon>
         )}
         <UserInfo>

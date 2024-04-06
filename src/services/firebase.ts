@@ -167,7 +167,6 @@ export function getPosts(setPosts: any) {
 
 export async function updatePost({ postId, newPost }: UpdatePost) {
   const postRef = doc(db, "posts", postId);
-
   const updateData = {
     post: newPost,
   };

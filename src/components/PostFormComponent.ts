@@ -22,7 +22,11 @@ export const ProfileImg = styled.img`
 
 export const ProfileIcon = styled.svg`
   width: 50px;
+  padding: 5px;
   fill: #1877f2;
+  background-color: #eff4fc;
+  border-radius: 10px;
+  margin-right: 10px;
 `;
 
 export const TextArea = styled.textarea`
@@ -41,16 +45,13 @@ export const TextArea = styled.textarea`
 `;
 
 export const Container = styled.div`
-  margin-left: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
 `;
 
-export const AttachImgButton = styled.label`
-  margin-right: 10px;
-`;
+export const AttachImgButton = styled.label``;
 
 export const Icon = styled.svg`
   width: 25px;

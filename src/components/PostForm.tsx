@@ -12,6 +12,13 @@ import {
   SubmitButton,
   TextArea,
 } from "./PostFormComponent";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
 export default function PostForm() {
   const user = auth.currentUser;
@@ -59,45 +66,48 @@ export default function PostForm() {
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
-            <path
-              clipRule="evenodd"
-              fillRule="evenodd"
-              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z"
-            />
+            <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
           </ProfileIcon>
         )}
-        <TextArea
-          rows={3}
-          onChange={onChange}
-          value={post}
-          placeholder="What is Happening??!!"
-          required
-        />
+        <Wrapper>
+          <TextArea
+            rows={3}
+            onChange={onChange}
+            value={post}
+            placeholder="What is Happening??!!"
+            required
+          />
+          <Container>
+            <AttachImgButton htmlFor="file">
+              {file ? (
+                "Photo Added ✅"
+              ) : (
+                <Icon
+                  fill="none"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                  />
+                </Icon>
+              )}
+            </AttachImgButton>
+            <Input
+              id="file"
+              type="file"
+              accept="image/*"
+              onChange={onFileChange}
+            />
+            <SubmitButton>{isLoading ? "Posting..." : "Post"}</SubmitButton>
+          </Container>
+        </Wrapper>
       </FormContainer>
-      <Container>
-        <AttachImgButton htmlFor="file">
-          {file ? (
-            "Photo Added ✅"
-          ) : (
-            <Icon
-              fill="none"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-              />
-            </Icon>
-          )}
-        </AttachImgButton>
-        <Input id="file" type="file" accept="image/*" onChange={onFileChange} />
-        <SubmitButton>{isLoading ? "Posting..." : "Post"}</SubmitButton>
-      </Container>
     </Form>
   );
 }

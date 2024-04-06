@@ -82,7 +82,7 @@ export default function Post({
   post,
   createdAt,
 }: TimelinePost) {
-  const createdTime = new Date(createdAt).toLocaleDateString();
+  const createdTime = new Date(createdAt).toLocaleString("ko-KR");
   const user = auth.currentUser;
   const [drop, setDrop] = useState(false);
   const [isEdit, setIsEdit] = useState(false);

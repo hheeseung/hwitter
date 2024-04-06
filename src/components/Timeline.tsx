@@ -4,7 +4,12 @@ import Post from "./Post";
 import styled from "styled-components";
 
 const Wrapper = styled.ul`
+  height: 100vh;
   margin-top: 10px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default function Timeline() {

@@ -25,17 +25,22 @@ const Title = styled.h1`
 const List = styled.ul`
   background-color: white;
   border-radius: 10px;
-  padding: 15px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  margin: 10px 0;
 `;
 
 const Item = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  padding: 15px;
   &:last-child {
     margin-bottom: 0;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: #eff4fc;
+    border-radius: 10px;
   }
 `;
 const UserInfo = styled.div`
@@ -74,7 +79,9 @@ const Request = styled.li`
   margin-bottom: 10px;
 `;
 
-const Message = styled.p``;
+const Message = styled.p`
+  line-height: 1.2;
+`;
 
 const Requester = styled.span`
   font-weight: 600;

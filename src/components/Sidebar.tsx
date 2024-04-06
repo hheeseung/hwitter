@@ -49,7 +49,6 @@ const UserId = styled.span`
 
 const Navbar = styled.ul`
   background-color: white;
-  padding: 10px 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   a {
@@ -61,7 +60,7 @@ const Navbar = styled.ul`
 const NavItem = styled.li`
   display: flex;
   align-items: center;
-  padding: 15px 15px 15px 0;
+  padding: 25px;
   border-bottom: 1px solid #e6e6e6;
   &:nth-child(4) {
     border-bottom: none;

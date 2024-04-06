@@ -24,10 +24,7 @@ const Item = styled.li`
   padding: 20px;
   &:hover {
     background-color: #eff4fc;
-    &:first-child {
-      border-top-right-radius: 10px;
-      border-top-left-radius: 10px;
-    }
+    border-radius: 10px;
   }
   &:last-child {
     color: #ff4154;

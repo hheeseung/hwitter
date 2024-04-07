@@ -60,7 +60,7 @@ const Navbar = styled.ul`
 const NavItem = styled.li`
   display: flex;
   align-items: center;
-  padding: 25px;
+  padding: 20px;
   border-bottom: 1px solid #e6e6e6;
   &:nth-child(4) {
     border-bottom: none;

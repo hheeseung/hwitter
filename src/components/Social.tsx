@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getContacts, getRequests } from "../services/social";
 
 type Social = {
   profileImg: string;
@@ -26,7 +27,6 @@ const List = styled.ul`
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  margin: 10px 0;
 `;
 
 const Item = styled.li`
@@ -74,6 +74,7 @@ const RequestItem = styled.ul`
 `;
 
 const Request = styled.li`
+  width: 100%;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -122,29 +123,27 @@ export default function Social() {
   const [contacts, setContacts] = useState<Social[]>([]);
   const [requests, setRequests] = useState<Social[]>([]);
 
-  const getContacts = async () => {
-    try {
-      const res = await fetch("/data/contact.json");
-      const data = await res.json();
-      setContacts(data);
-    } catch (error) {
-      console.error;
-    }
-  };
-
-  const getRequests = async () => {
-    try {
-      const res = await fetch("/data/request.json");
-      const data = await res.json();
-      setRequests(data);
-    } catch (error) {
-      console.error;
-    }
-  };
-
   useEffect(() => {
-    getContacts();
-    getRequests();
+    const fetchContacts = async () => {
+      try {
+        const data = await getContacts();
+        setContacts(data);
+      } catch (error) {
+        console.error;
+      }
+    };
+
+    const fetchRequests = async () => {
+      try {
+        const data = await getRequests();
+        setRequests(data);
+      } catch (error) {
+        console.error;
+      }
+    };
+
+    fetchContacts();
+    fetchRequests();
   }, []);
 
   return (

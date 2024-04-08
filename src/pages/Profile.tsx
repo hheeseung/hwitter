@@ -1,14 +1,22 @@
 import styled from "styled-components";
+import MyPost from "../components/MyPost";
+import MyProfile from "../components/MyProfile";
+import { auth } from "../services/firebase";
 
 const Wrapper = styled.section`
   width: 50%;
   height: fit-content;
-  background-color: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 `;
 
 export default function Profile() {
-  return <Wrapper>Profile</Wrapper>;
+  const user = auth.currentUser;
+
+  return (
+    <Wrapper>
+      <MyProfile user={user} />
+      <MyPost user={user!} />
+    </Wrapper>
+  );
 }

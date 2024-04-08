@@ -19,6 +19,7 @@ const ProfileCard = styled.div`
 
 const ProfileIcon = styled.svg`
   width: 45px;
+  height: 45px;
   padding: 5px;
   fill: #1877f2;
   background-color: #eff4fc;
@@ -28,6 +29,8 @@ const ProfileIcon = styled.svg`
 
 const ProfileImg = styled.img`
   width: 45px;
+  height: 45px;
+  object-fit: cover;
   margin-right: 5px;
   border-radius: 10px;
 `;

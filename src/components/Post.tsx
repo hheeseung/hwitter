@@ -7,7 +7,7 @@ import EditForm from "./EditForm";
 const List = styled.li`
   width: 100%;
   background-color: white;
-  padding: 15px;
+  padding: 20px;
   margin-top: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -27,6 +27,8 @@ const UserInfo = styled.div`
 
 const UserAvatar = styled.img`
   width: 50px;
+  height: 50px;
+  object-fit: cover;
   border-radius: 10px;
 `;
 
@@ -66,6 +68,7 @@ const DropdownIcon = styled.svg`
 
 const Text = styled.p`
   margin-bottom: 20px;
+  line-height: 1.3;
 `;
 
 const AttachedImg = styled.img`

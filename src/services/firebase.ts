@@ -16,12 +16,14 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDocs,
   getFirestore,
   limit,
   onSnapshot,
   orderBy,
   query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import {
   deleteObject,
@@ -68,6 +70,17 @@ export type TimelinePost = {
   photo?: string;
   id: string;
   profileImg?: string;
+};
+
+type UpdateUserProfile = {
+  user: User;
+  files?: FileList | null;
+  setAvatar?: any;
+  newUsername?: string;
+};
+
+type MyPosts = {
+  user: User;
 };
 
 const firebaseConfig = {
@@ -187,4 +200,40 @@ export async function deletePost({ userId, id, photo }: DeletePost) {
   } catch (error) {
     console.error;
   }
+}
+
+export async function updateUserProfile({
+  user,
+  files,
+  setAvatar,
+  newUsername,
+}: UpdateUserProfile) {
+  if (files && files.length === 1) {
+    const file = files[0];
+    const locationRef = ref(storage, `avatars/${user?.uid}`);
+    const result = await uploadBytes(locationRef, file);
+    const avatarURL = await getDownloadURL(result.ref);
+    setAvatar(avatarURL);
+    await updateProfile(user, {
+      photoURL: avatarURL,
+    });
+  }
+  await updateProfile(user, {
+    displayName: newUsername,
+  });
+}
+
+export async function getMyPosts({ user }: MyPosts) {
+  const tweetQuery = query(
+    collection(db, "posts"),
+    where("userId", "==", user?.uid),
+    orderBy("createdAt", "desc"),
+    limit(25)
+  );
+  const snapshot = await getDocs(tweetQuery);
+  const posts = snapshot.docs.map((doc) => {
+    const { post, createdAt, userId, username, photo, profileImg } = doc.data();
+    return { post, createdAt, userId, username, photo, profileImg, id: doc.id };
+  });
+  return posts;
 }

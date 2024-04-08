@@ -86,18 +86,19 @@ export default function EditForm({
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user || user.uid === userId || post === "" || post.length > 300)
+    if (!user || user.uid !== userId || newPost === "" || newPost.length > 300)
       return;
     try {
       setIsLoading(true);
       await updatePost({
         postId,
-        userId: user.uid,
-        newPost,
+        post: newPost,
       });
-      setIsEdit(false);
     } catch (error) {
-      console.error;
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+      setIsEdit(false);
     }
   };
 
@@ -131,8 +132,12 @@ export default function EditForm({
           />
         </FormContainer>
         <Container>
-          <SubmitButton>{isLoading ? "Updating..." : "Update"}</SubmitButton>
-          <CancelButton onClick={onCancel}>Cancel</CancelButton>
+          <SubmitButton type="submit">
+            {isLoading ? "Updating..." : "Update"}
+          </SubmitButton>
+          <CancelButton type="button" onClick={onCancel}>
+            Cancel
+          </CancelButton>
         </Container>
       </Form>
     </Wrapper>

@@ -51,8 +51,7 @@ type Post = {
 
 type UpdatePost = {
   postId: string;
-  userId: string;
-  newPost: string;
+  post: string;
 };
 
 type DeletePost = {
@@ -165,13 +164,17 @@ export function getPosts(setPosts: any) {
   return unsubscribe;
 }
 
-export async function updatePost({ postId, newPost }: UpdatePost) {
+export async function updatePost({ postId, post }: UpdatePost) {
   const postRef = doc(db, "posts", postId);
   const updateData = {
-    post: newPost,
+    post,
   };
 
-  await updateDoc(postRef, updateData);
+  try {
+    await updateDoc(postRef, updateData);
+  } catch (error) {
+    console.error;
+  }
 }
 
 export async function deletePost({ userId, id, photo }: DeletePost) {

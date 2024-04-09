@@ -31,7 +31,7 @@ const ProfileImg = styled.img`
   width: 45px;
   height: 45px;
   object-fit: cover;
-  margin-right: 5px;
+  margin-right: 10px;
   border-radius: 10px;
 `;
 
@@ -103,6 +103,7 @@ export default function Sidebar() {
   const user = auth.currentUser;
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
   const onLogOut = () => {
     const ok = confirm("로그아웃 하시겠습니까?");
     if (ok) {

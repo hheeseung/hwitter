@@ -149,6 +149,24 @@ export default function Social() {
   return (
     <Wrapper>
       <Container>
+        <Title>REQUESTS</Title>
+        {requests.map((request, index) => (
+          <RequestItem key={index}>
+            <Request>
+              <Profile src={request.profileImg} />
+              <Message>
+                <Requester>{request.name}</Requester> wants to add you to
+                friends
+              </Message>
+            </Request>
+            <Buttons>
+              <Button>Accept</Button>
+              <Button>Decline</Button>
+            </Buttons>
+          </RequestItem>
+        ))}
+      </Container>
+      <Container>
         <Title>CONTACTS</Title>
         <List>
           {contacts.map((contact, index) => (
@@ -174,24 +192,6 @@ export default function Social() {
             </Item>
           ))}
         </List>
-      </Container>
-      <Container>
-        <Title>REQUESTS</Title>
-        {requests.map((request, index) => (
-          <RequestItem key={index}>
-            <Request>
-              <Profile src={request.profileImg} />
-              <Message>
-                <Requester>{request.name}</Requester> wants to add you to
-                friends
-              </Message>
-            </Request>
-            <Buttons>
-              <Button>Accept</Button>
-              <Button>Decline</Button>
-            </Buttons>
-          </RequestItem>
-        ))}
       </Container>
     </Wrapper>
   );

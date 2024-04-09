@@ -46,7 +46,7 @@ export default function PostManage({
   const onDelete = async () => {
     const ok = confirm("삭제하시겠습니까?");
     if (!ok || user?.uid !== userId) return;
-    deletePost({ userId, id: postId, photo });
+    await deletePost({ userId, id: postId, photo });
   };
 
   return (

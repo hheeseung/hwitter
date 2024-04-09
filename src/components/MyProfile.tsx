@@ -78,7 +78,6 @@ const SubmitButton = styled.input`
   color: white;
   padding: 8px;
   border-radius: 5px;
-  font-weight: 600;
   font-size: 15px;
   font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",

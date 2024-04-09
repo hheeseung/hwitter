@@ -16,7 +16,6 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
   getFirestore,
   limit,
   onSnapshot,
@@ -81,6 +80,7 @@ type UpdateUserProfile = {
 
 type MyPosts = {
   user: User;
+  setPosts: any;
 };
 
 const firebaseConfig = {
@@ -151,6 +151,7 @@ export async function addPost({ user, post, file }: Post) {
 
 export function getPosts(setPosts: any) {
   let unsubscribe: Unsubscribe | null = null;
+
   const postsQuery = query(
     collection(db, "posts"),
     orderBy("createdAt", "desc"),
@@ -218,22 +219,40 @@ export async function updateUserProfile({
       photoURL: avatarURL,
     });
   }
-  await updateProfile(user, {
-    displayName: newUsername,
-  });
+
+  if (newUsername) {
+    await updateProfile(user, {
+      displayName: newUsername,
+    });
+  }
 }
 
-export async function getMyPosts({ user }: MyPosts) {
-  const tweetQuery = query(
+export function getMyPosts({ user, setPosts }: MyPosts) {
+  let unsubscribe: Unsubscribe | null = null;
+
+  const postsQuery = query(
     collection(db, "posts"),
     where("userId", "==", user?.uid),
     orderBy("createdAt", "desc"),
     limit(25)
   );
-  const snapshot = await getDocs(tweetQuery);
-  const posts = snapshot.docs.map((doc) => {
-    const { post, createdAt, userId, username, photo, profileImg } = doc.data();
-    return { post, createdAt, userId, username, photo, profileImg, id: doc.id };
+
+  unsubscribe = onSnapshot(postsQuery, (snapshot) => {
+    const posts = snapshot.docs.map((doc) => {
+      const { post, createdAt, userId, username, photo, profileImg } =
+        doc.data();
+      return {
+        post,
+        createdAt,
+        userId,
+        username,
+        photo,
+        id: doc.id,
+        profileImg,
+      };
+    });
+    setPosts(posts);
   });
-  return posts;
+
+  return unsubscribe;
 }

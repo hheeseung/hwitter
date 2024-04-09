@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { TimelinePost, getMyPosts } from "../services/firebase";
@@ -7,18 +6,21 @@ import styled from "styled-components";
 
 const Posts = styled.ul`
   width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default function MyPost({ user }: { user: User }) {
   const [posts, setPosts] = useState<TimelinePost[]>([]);
 
-  const fetchMyPosts = async () => {
-    const posts = await getMyPosts({ user });
-    setPosts(posts);
-  };
-
   useEffect(() => {
-    fetchMyPosts();
+    const unsubscribe = getMyPosts({ user, setPosts });
+    return () => {
+      unsubscribe && unsubscribe();
+    };
   }, []);
 
   return (

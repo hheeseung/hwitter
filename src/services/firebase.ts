@@ -204,6 +204,13 @@ export async function deletePost({ userId, id, photo }: DeletePost) {
   }
 }
 
+export function getUserProfile() {
+  const user = auth.currentUser;
+  const username = user?.displayName;
+  const profileImg = user?.photoURL;
+  return { username, profileImg };
+}
+
 export async function updateUserProfile({
   user,
   files,
@@ -226,7 +233,7 @@ export async function updateUserProfile({
       photoURL: avatarURL,
     });
     for (const item of snapshot.docs) {
-      await updateDoc(doc(db, "posts", item.id), {
+      updateDoc(doc(db, "posts", item.id), {
         profileImg: avatarURL,
       });
     }
@@ -238,7 +245,7 @@ export async function updateUserProfile({
     });
     for (const item of snapshot.docs) {
       await updateDoc(doc(db, "posts", item.id), {
-        displayName: newUsername,
+        username: newUsername,
       });
     }
   }

@@ -54,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #eff4fc;
-    max-width: 1280px;
+    max-width: 1536px;
     margin: 0 auto;
   }
   button {

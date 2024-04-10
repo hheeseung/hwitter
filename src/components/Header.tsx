@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Head = styled.header`
@@ -25,12 +26,15 @@ const Title = styled.h1`
 const Group = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export default function Header() {
+  const navigate = useNavigate();
+
   return (
     <Head>
-      <Group>
+      <Group onClick={() => navigate("/")}>
         <Icon
           fill="currentColor"
           viewBox="0 0 20 20"

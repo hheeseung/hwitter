@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { FormContainer, ProfileImg, SubmitButton } from "./PostFormComponent";
+import {
+  FormContainer,
+  ProfileImg,
+  SubmitButton,
+} from "./style/PostFormComponent";
 import { auth, updatePost } from "../services/firebase";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -123,6 +127,7 @@ export default function EditForm({
             </ProfileIcon>
           )}
           <TextArea
+            autoFocus
             rows={3}
             onChange={onChange}
             name="post"

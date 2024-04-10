@@ -12,7 +12,7 @@ import {
   Switcher,
   Title,
   Wrapper,
-} from "../components/AuthComponent";
+} from "../components/style/AuthComponent";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 
 export default function CreateAccount() {

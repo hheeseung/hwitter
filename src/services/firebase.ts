@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
@@ -204,12 +203,12 @@ export async function deletePost({ userId, id, photo }: DeletePost) {
   }
 }
 
-export function getUserProfile() {
-  const user = auth.currentUser;
-  const username = user?.displayName;
-  const profileImg = user?.photoURL;
-  return { username, profileImg };
-}
+export type CurrentUser = {
+  user: User;
+  setUserInfo: any;
+};
+
+export function getCurrentUserProfile() {}
 
 export async function updateUserProfile({
   user,
@@ -233,7 +232,7 @@ export async function updateUserProfile({
       photoURL: avatarURL,
     });
     for (const item of snapshot.docs) {
-      updateDoc(doc(db, "posts", item.id), {
+      await updateDoc(doc(db, "posts", item.id), {
         profileImg: avatarURL,
       });
     }

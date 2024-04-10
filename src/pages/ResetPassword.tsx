@@ -7,7 +7,7 @@ import {
   Or,
   Title,
   Wrapper,
-} from "../components/AuthComponent";
+} from "../components/style/AuthComponent";
 import { resetPassword } from "../services/firebase";
 import { FirebaseError } from "firebase/app";
 import { useNavigate } from "react-router-dom";

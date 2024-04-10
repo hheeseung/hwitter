@@ -11,7 +11,7 @@ import {
   ProfileImg,
   SubmitButton,
   TextArea,
-} from "./PostFormComponent";
+} from "./style/PostFormComponent";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

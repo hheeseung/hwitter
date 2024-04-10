@@ -35,7 +35,7 @@ const ProfileIcon = styled.svg`
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 50%;
-  background-color: #eff4fc;
+  background-color: white;
   color: #1877f2;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 `;

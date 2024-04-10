@@ -13,6 +13,10 @@ const Posts = styled.ul`
   }
 `;
 
+const Empty = styled.p`
+  text-align: center;
+`;
+
 export default function MyPost({ user }: { user: User }) {
   const [posts, setPosts] = useState<TimelinePost[]>([]);
 
@@ -24,10 +28,16 @@ export default function MyPost({ user }: { user: User }) {
   }, []);
 
   return (
-    <Posts>
-      {posts.map((post) => (
-        <Post key={post.id} {...post} />
-      ))}
-    </Posts>
+    <>
+      {posts.length !== 0 ? (
+        <Posts>
+          {posts.map((post) => (
+            <Post key={post.id} {...post} />
+          ))}
+        </Posts>
+      ) : (
+        <Empty>아직 작성된 포스트가 없습니다.</Empty>
+      )}
+    </>
   );
 }

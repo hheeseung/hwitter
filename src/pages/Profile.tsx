@@ -6,7 +6,6 @@ import { auth } from "../services/firebase";
 const Wrapper = styled.section`
   width: 50%;
   height: fit-content;
-  padding: 15px;
   border-radius: 10px;
 `;
 

@@ -178,6 +178,29 @@ export function getPosts(setPosts: any) {
   return unsubscribe;
 }
 
+export function getPhotos(setPhotos: any) {
+  let unsubscribe: Unsubscribe | null = null;
+
+  const postsQuery = query(
+    collection(db, "posts"),
+    orderBy("createdAt", "desc"),
+    limit(30)
+  );
+
+  unsubscribe = onSnapshot(postsQuery, (snapshot) => {
+    const photos = snapshot.docs.map((doc) => {
+      const { photo } = doc.data();
+      return {
+        photo,
+        id: doc.id,
+      };
+    });
+    setPhotos(photos);
+  });
+
+  return unsubscribe;
+}
+
 export async function updatePost({ postId, post }: UpdatePost) {
   const postRef = doc(db, "posts", postId);
   const updateData = {

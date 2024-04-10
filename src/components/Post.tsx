@@ -72,7 +72,10 @@ const Text = styled.p`
 `;
 
 const AttachedImg = styled.img`
-  width: 100%;
+  width: fit-content;
+  height: 400px;
+  object-fit: contain;
+  object-position: left;
   border-radius: 10px;
 `;
 
@@ -144,7 +147,7 @@ export default function Post({
         </Dropdown>
       </UserContainer>
       <Text>{post}</Text>
-      <AttachedImg src={photo} />
+      {photo && <AttachedImg src={photo} />}
       {isEdit ? (
         <EditForm
           userId={userId}

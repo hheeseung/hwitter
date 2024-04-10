@@ -7,8 +7,9 @@ type Photo = {
   photo: string;
 };
 
-const PhotoGrid = styled.section`
+const PhotoGrid = styled.main`
   width: 50%;
+  height: fit-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;

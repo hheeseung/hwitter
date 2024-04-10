@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PostForm from "../components/PostForm";
 import Timeline from "../components/Timeline";
 
-const Wrapper = styled.section`
+const Wrapper = styled.main`
   width: 50%;
   display: flex;
   flex-direction: column;

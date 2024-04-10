@@ -3,7 +3,7 @@ import MyPost from "../components/MyPost";
 import MyProfile from "../components/MyProfile";
 import { auth } from "../services/firebase";
 
-const Wrapper = styled.section`
+const Wrapper = styled.main`
   width: 50%;
   height: fit-content;
   border-radius: 10px;

@@ -8,7 +8,7 @@ type Social = {
 };
 
 const Wrapper = styled.aside`
-  width: 25%;
+  width: 300px;
   height: fit-content;
   margin-left: 20px;
 `;

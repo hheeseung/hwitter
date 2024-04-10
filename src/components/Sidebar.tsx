@@ -3,7 +3,7 @@ import { auth, logout } from "../services/firebase";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Wrapper = styled.aside`
-  width: 25%;
+  width: 300px;
   margin-right: 20px;
 `;
 

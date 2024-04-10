@@ -16,6 +16,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDocs,
   getFirestore,
   limit,
   onSnapshot,
@@ -209,6 +210,12 @@ export async function updateUserProfile({
   setAvatar,
   newUsername,
 }: UpdateUserProfile) {
+  const profileQuery = query(
+    collection(db, "posts"),
+    where("userId", "==", user.uid)
+  );
+  const snapshot = await getDocs(profileQuery);
+
   if (files && files.length === 1) {
     const file = files[0];
     const locationRef = ref(storage, `avatars/${user?.uid}`);
@@ -218,12 +225,22 @@ export async function updateUserProfile({
     await updateProfile(user, {
       photoURL: avatarURL,
     });
+    for (const item of snapshot.docs) {
+      await updateDoc(doc(db, "posts", item.id), {
+        profileImg: avatarURL,
+      });
+    }
   }
 
   if (newUsername) {
     await updateProfile(user, {
       displayName: newUsername,
     });
+    for (const item of snapshot.docs) {
+      await updateDoc(doc(db, "posts", item.id), {
+        displayName: newUsername,
+      });
+    }
   }
 }
 
@@ -234,7 +251,7 @@ export function getMyPosts({ user, setPosts }: MyPosts) {
     collection(db, "posts"),
     where("userId", "==", user?.uid),
     orderBy("createdAt", "desc"),
-    limit(25)
+    limit(30)
   );
 
   unsubscribe = onSnapshot(postsQuery, (snapshot) => {

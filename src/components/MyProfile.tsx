@@ -10,7 +10,6 @@ const UserProfile = styled.div`
   align-items: center;
   width: 100%;
   padding: 20px;
-  border-radius: 10px;
 `;
 
 const ProfileUpload = styled.label`

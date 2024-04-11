@@ -5,19 +5,22 @@ import Post from "./Post";
 import styled from "styled-components";
 
 const MyPosts = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
   width: 100%;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   padding: 15px;
-  background-color: white;
-  border-radius: 10px;
 `;
 
 const Category = styled.li`
   width: fit-content;
-  padding: 5px 0;
-  border-bottom: 3px solid #1877f2;
-  cursor: pointer;
+  text-align: center;
+  padding: 5px 10px;
+  &:first-child {
+    border-bottom: 3px solid #1877f2;
+  }
 `;
 
 const Posts = styled.ul`
@@ -47,6 +50,9 @@ export default function MyPost({ user }: { user: User }) {
     <>
       <MyPosts>
         <Category>My Posts</Category>
+        <Category>Likes</Category>
+        <Category>Bookmarks</Category>
+        <Category>Comments</Category>
       </MyPosts>
       {posts.length !== 0 ? (
         <Posts>

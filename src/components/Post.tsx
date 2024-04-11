@@ -77,6 +77,10 @@ const AttachedImg = styled.img`
   object-fit: contain;
   object-position: left;
   border-radius: 10px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    height: fit-content;
+  }
 `;
 
 export default function Post({

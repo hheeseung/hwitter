@@ -17,6 +17,13 @@ const PhotoGrid = styled.main`
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    background-color: inherit;
+    grid-template-columns: 1fr;
+    margin-bottom: 80px;
+    box-shadow: none;
+  }
 `;
 
 const Photo = styled.img`
@@ -24,11 +31,18 @@ const Photo = styled.img`
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
+  cursor: pointer;
   &:hover {
     transform: scale(1.1);
     transition: all linear 0.2s;
   }
-  cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    height: 350px;
+    &:hover {
+      transform: none;
+      transition: none;
+    }
+  }
 `;
 
 export default function Photos() {

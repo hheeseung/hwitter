@@ -7,6 +7,11 @@ const Wrapper = styled.main`
   width: 50%;
   height: fit-content;
   border-radius: 10px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0 15px;
+    margin-bottom: 80px;
+  }
 `;
 
 export default function Profile() {

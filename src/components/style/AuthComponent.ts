@@ -7,6 +7,9 @@ export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media only screen and (max-width: 768px) {
+    width: fit-content;
+  }
 `;
 
 export const Title = styled.h1`

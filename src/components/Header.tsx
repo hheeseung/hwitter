@@ -5,7 +5,7 @@ const Head = styled.header`
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
   background-color: white;
 `;
 

@@ -2,9 +2,12 @@ import styled from "styled-components";
 import { auth, logout } from "../services/firebase";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Wrapper = styled.aside`
+const Wrapper = styled.nav`
   width: 300px;
   margin-right: 20px;
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ProfileCard = styled.div`

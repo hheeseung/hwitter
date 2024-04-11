@@ -11,6 +11,9 @@ const Wrapper = styled.aside`
   width: 300px;
   height: fit-content;
   margin-left: 20px;
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Container = styled.aside`

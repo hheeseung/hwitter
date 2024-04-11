@@ -181,13 +181,13 @@ export function getPosts(setPosts: any) {
 export function getPhotos(setPhotos: any) {
   let unsubscribe: Unsubscribe | null = null;
 
-  const postsQuery = query(
+  const photosQuery = query(
     collection(db, "posts"),
     orderBy("createdAt", "desc"),
     limit(30)
   );
 
-  unsubscribe = onSnapshot(postsQuery, (snapshot) => {
+  unsubscribe = onSnapshot(photosQuery, (snapshot) => {
     const photos = snapshot.docs.map((doc) => {
       const { photo } = doc.data();
       return {

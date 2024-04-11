@@ -79,10 +79,6 @@ const Text = styled.p`
 const AttachedImg = styled.img`
   width: 100%;
   border-radius: 10px;
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    height: fit-content;
-  }
 `;
 
 export default function Post({

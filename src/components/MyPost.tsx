@@ -12,6 +12,9 @@ const MyPosts = styled.ul`
   font-size: 17px;
   font-weight: 600;
   padding: 15px;
+  @media only screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 const Category = styled.li`

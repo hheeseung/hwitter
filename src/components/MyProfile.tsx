@@ -110,6 +110,10 @@ export default function MyProfile({ user }: { user: User | null }) {
     const { files } = e.target;
     if (!user) return;
     if (files && files.length === 1) {
+      if (files[0].size > 1024 ** 2) {
+        window.alert("첨부파일 용량은 1MB 미만의 파일만 가능합니다.");
+        return;
+      }
       await updateUserProfile({ user, files, setAvatar });
     }
   };

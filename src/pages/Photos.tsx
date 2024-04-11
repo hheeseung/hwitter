@@ -13,10 +13,9 @@ const PhotoGrid = styled.main`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  background-color: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  /* */
   @media only screen and (max-width: 768px) {
     width: 100%;
     background-color: inherit;
@@ -32,6 +31,7 @@ const Photo = styled.img`
   object-fit: cover;
   border-radius: 10px;
   cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   &:hover {
     transform: scale(1.1);
     transition: all linear 0.2s;
@@ -45,8 +45,14 @@ const Photo = styled.img`
   }
 `;
 
+const NoPhotos = styled.p``;
+
 export default function Photos() {
   const [photos, setPhotos] = useState<Photo[]>([]);
+
+  const allPhotosAreUndefined = photos.every(
+    (photo) => photo.photo === undefined
+  );
 
   useEffect(() => {
     const unsubscribe = getPhotos(setPhotos);
@@ -57,11 +63,15 @@ export default function Photos() {
 
   return (
     <PhotoGrid>
-      {photos.map(
-        (photo) =>
-          photo.photo !== undefined && (
-            <Photo key={photo.id} src={photo.photo} alt="photo" />
-          )
+      {allPhotosAreUndefined ? (
+        <NoPhotos>아직 등록된 사진이 없습니다.</NoPhotos>
+      ) : (
+        photos.map(
+          (photo) =>
+            photo.photo !== undefined && (
+              <Photo key={photo.id} src={photo.photo} alt="photo" />
+            )
+        )
       )}
     </PhotoGrid>
   );

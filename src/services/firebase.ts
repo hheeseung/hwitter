@@ -99,6 +99,7 @@ export const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+// 회원가입, 로그인 관련
 export async function createUser({ name, email, password }: UserInfo) {
   const credential = await createUserWithEmailAndPassword(
     auth,
@@ -126,10 +127,12 @@ export function logout() {
   auth.signOut().catch(console.error);
 }
 
+// 비밀번호 초기화
 export async function resetPassword(email: string) {
   await sendPasswordResetEmail(auth, email);
 }
 
+// 게시물 추가
 export async function addPost({ user, post, file }: Post) {
   const doc = await addDoc(collection(db, "posts"), {
     post,
@@ -149,6 +152,7 @@ export async function addPost({ user, post, file }: Post) {
   return doc;
 }
 
+// 전체 게시물 불러오기
 export function getPosts(setPosts: any) {
   let unsubscribe: Unsubscribe | null = null;
 
@@ -178,6 +182,7 @@ export function getPosts(setPosts: any) {
   return unsubscribe;
 }
 
+// 사진 목록 불러오기
 export function getPhotos(setPhotos: any) {
   let unsubscribe: Unsubscribe | null = null;
 
@@ -201,6 +206,7 @@ export function getPhotos(setPhotos: any) {
   return unsubscribe;
 }
 
+// 게시물 수정
 export async function updatePost({ postId, post }: UpdatePost) {
   const postRef = doc(db, "posts", postId);
   const updateData = {
@@ -214,6 +220,7 @@ export async function updatePost({ postId, post }: UpdatePost) {
   }
 }
 
+// 게시물 삭제
 export async function deletePost({ userId, id, photo }: DeletePost) {
   try {
     await deleteDoc(doc(db, "posts", id));
@@ -231,8 +238,7 @@ export type CurrentUser = {
   setUserInfo: any;
 };
 
-export function getCurrentUserProfile() {}
-
+// 사용자 프로필 업데이트
 export async function updateUserProfile({
   user,
   files,
@@ -273,6 +279,7 @@ export async function updateUserProfile({
   }
 }
 
+// 사용자 작성 게시물 불러오기
 export function getMyPosts({ user, setPosts }: MyPosts) {
   let unsubscribe: Unsubscribe | null = null;
 

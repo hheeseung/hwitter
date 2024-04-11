@@ -36,16 +36,18 @@ const NavItem = styled.li`
 const Icon = styled.svg`
   width: 30px;
   color: slategray;
-  &:last-child {
-    color: #ff4154;
-  }
 `;
 
-const ProfileImg = styled.img<{ outlineBorder: string }>`
+const LogoutIcon = styled.svg`
+  width: 30px;
+  color: #ff4154;
+`;
+
+const ProfileImg = styled.img<{ $outlineborder: string }>`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  outline: ${(props) => props.outlineBorder};
+  outline: ${(props) => props.$outlineborder};
   padding: 2px;
 `;
 
@@ -103,21 +105,32 @@ export default function BottomNavbar() {
         </Link>
         <Link to="/profile">
           <NavItem>
-            {pathname === "/profile" ? (
-              <ProfileImg
-                src={user.photoURL!}
-                outlineBorder="1px solid #1877f2"
-              />
+            {user.photoURL !== null ? (
+              pathname === "/profile" ? (
+                <ProfileImg
+                  src={user.photoURL}
+                  $outlineborder="1px solid #1877f2"
+                />
+              ) : (
+                <ProfileImg
+                  src={user.photoURL}
+                  $outlineborder="1px solid #e9e9e9"
+                />
+              )
             ) : (
-              <ProfileImg
-                src={user.photoURL!}
-                outlineBorder="1px solid #e9e9e9"
-              />
+              <Icon
+                fill={pathname === "/profile" ? "#1877f2" : "slategray"}
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+              </Icon>
             )}
           </NavItem>
         </Link>
         <NavItem onClick={onLogOut}>
-          <Icon
+          <LogoutIcon
             fill="none"
             strokeWidth={1.5}
             stroke="currentColor"
@@ -130,7 +143,7 @@ export default function BottomNavbar() {
               strokeLinejoin="round"
               d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
             />
-          </Icon>
+          </LogoutIcon>
         </NavItem>
       </Navbar>
     </Wrapper>

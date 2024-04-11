@@ -41,11 +41,11 @@ const Icon = styled.svg`
   }
 `;
 
-const ProfileImg = styled.img<{ outline: string }>`
+const ProfileImg = styled.img<{ outlineBorder: string }>`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  outline: ${(props) => props.outline};
+  outline: ${(props) => props.outlineBorder};
   padding: 2px;
 `;
 
@@ -104,9 +104,15 @@ export default function BottomNavbar() {
         <Link to="/profile">
           <NavItem>
             {pathname === "/profile" ? (
-              <ProfileImg src={user.photoURL!} outline="1px solid #1877f2" />
+              <ProfileImg
+                src={user.photoURL!}
+                outlineBorder="1px solid #1877f2"
+              />
             ) : (
-              <ProfileImg src={user.photoURL!} outline="1px solid #e9e9e9" />
+              <ProfileImg
+                src={user.photoURL!}
+                outlineBorder="1px solid #e9e9e9"
+              />
             )}
           </NavItem>
         </Link>

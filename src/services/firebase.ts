@@ -12,6 +12,8 @@ import {
 } from "firebase/auth";
 import {
   addDoc,
+  arrayRemove,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -69,6 +71,8 @@ export type TimelinePost = {
   photo?: string;
   id: string;
   profileImg?: string;
+  likedList: string[];
+  bookmarkedList: string[];
 };
 
 type UpdateUserProfile = {
@@ -81,6 +85,11 @@ type UpdateUserProfile = {
 type MyPosts = {
   user: User;
   setPosts: any;
+};
+
+type HandleInteraction = {
+  id: string;
+  userId: string;
 };
 
 const firebaseConfig = {
@@ -140,6 +149,8 @@ export async function addPost({ user, post, file }: Post) {
     username: user.displayName || "Anonymous",
     userId: user.uid,
     profileImg: user.photoURL || null,
+    likedList: [],
+    bookmarkedList: [],
   });
 
   if (file) {
@@ -164,8 +175,16 @@ export function getPosts(setPosts: any) {
 
   unsubscribe = onSnapshot(postsQuery, (snapshot) => {
     const posts = snapshot.docs.map((doc) => {
-      const { post, createdAt, userId, username, photo, profileImg } =
-        doc.data();
+      const {
+        post,
+        createdAt,
+        userId,
+        username,
+        photo,
+        profileImg,
+        likedList,
+        bookmarkedList,
+      } = doc.data();
       return {
         post,
         createdAt,
@@ -174,6 +193,8 @@ export function getPosts(setPosts: any) {
         photo,
         id: doc.id,
         profileImg,
+        likedList,
+        bookmarkedList,
       };
     });
     setPosts(posts);
@@ -216,7 +237,7 @@ export async function updatePost({ postId, post }: UpdatePost) {
   try {
     await updateDoc(postRef, updateData);
   } catch (error) {
-    console.error;
+    console.log(error);
   }
 }
 
@@ -229,7 +250,7 @@ export async function deletePost({ userId, id, photo }: DeletePost) {
       await deleteObject(photoRef);
     }
   } catch (error) {
-    console.error;
+    console.log(error);
   }
 }
 
@@ -292,8 +313,16 @@ export function getMyPosts({ user, setPosts }: MyPosts) {
 
   unsubscribe = onSnapshot(postsQuery, (snapshot) => {
     const posts = snapshot.docs.map((doc) => {
-      const { post, createdAt, userId, username, photo, profileImg } =
-        doc.data();
+      const {
+        post,
+        createdAt,
+        userId,
+        username,
+        photo,
+        profileImg,
+        likedList,
+        bookmarkedList,
+      } = doc.data();
       return {
         post,
         createdAt,
@@ -302,10 +331,44 @@ export function getMyPosts({ user, setPosts }: MyPosts) {
         photo,
         id: doc.id,
         profileImg,
+        likedList,
+        bookmarkedList,
       };
     });
     setPosts(posts);
   });
 
   return unsubscribe;
+}
+
+// 좋아요 추가
+export async function addLikes({ id, userId }: HandleInteraction) {
+  const likeRef = doc(db, "posts", id);
+  await updateDoc(likeRef, {
+    likedList: arrayUnion(userId),
+  });
+}
+
+// 좋아요 취소
+export async function removeLikes({ id, userId }: HandleInteraction) {
+  const likeRef = doc(db, "posts", id);
+  await updateDoc(likeRef, {
+    likedList: arrayRemove(userId),
+  });
+}
+
+// 북마크 추가
+export async function addBookmarks({ id, userId }: HandleInteraction) {
+  const bookmarkRef = doc(db, "posts", id);
+  await updateDoc(bookmarkRef, {
+    bookmarkedList: arrayUnion(userId),
+  });
+}
+
+// 북마크 삭제
+export async function removeBookmarks({ id, userId }: HandleInteraction) {
+  const bookmarkRef = doc(db, "posts", id);
+  await updateDoc(bookmarkRef, {
+    bookmarkedList: arrayRemove(userId),
+  });
 }

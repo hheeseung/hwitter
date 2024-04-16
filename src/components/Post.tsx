@@ -89,6 +89,8 @@ export default function Post({
   username,
   post,
   createdAt,
+  bookmarkedList,
+  likedList,
 }: TimelinePost) {
   const createdTime = new Date(createdAt).toLocaleString("ko-KR");
   const user = auth.currentUser;
@@ -160,7 +162,12 @@ export default function Post({
           setIsEdit={setIsEdit}
         />
       ) : null}
-      <Media />
+      <Media
+        userId={userId}
+        id={id}
+        bookmarkedList={bookmarkedList}
+        likedList={likedList}
+      />
     </List>
   );
 }

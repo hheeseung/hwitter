@@ -52,7 +52,7 @@ export default function MyPost({ user }: { user: User }) {
   return (
     <>
       <MyPosts>
-        <Category>My Posts</Category>
+        <Category>Posts</Category>
         <Category>Likes</Category>
         <Category>Bookmarks</Category>
         <Category>Comments</Category>

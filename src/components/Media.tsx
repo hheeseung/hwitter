@@ -9,7 +9,6 @@ import {
 } from "../services/firebase";
 
 type MediaProps = {
-  userId: string;
   id: string;
   bookmarkedList: string[];
   likedList: string[];
@@ -39,12 +38,7 @@ const MediaIcon = styled.svg`
   cursor: pointer;
 `;
 
-export default function Media({
-  userId,
-  id,
-  bookmarkedList,
-  likedList,
-}: MediaProps) {
+export default function Media({ id, bookmarkedList, likedList }: MediaProps) {
   const user = auth.currentUser!.uid;
   const [isLike, setIsLike] = useState(
     !!likedList.find((item) => item === user)
@@ -69,9 +63,9 @@ export default function Media({
     setIsBookmarked((curr) => {
       const newBookmarkState = !curr;
       if (newBookmarkState) {
-        addBookmarks({ id, userId });
+        addBookmarks({ id, userId: user });
       } else {
-        removeBookmarks({ id, userId });
+        removeBookmarks({ id, userId: user });
       }
       return newBookmarkState;
     });
@@ -158,7 +152,6 @@ export default function Media({
         </MediaIcon>
       )}
       <MediaIcon
-        onClick={onBookmarkClick}
         fill="none"
         strokeWidth={1.5}
         stroke="currentColor"

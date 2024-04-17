@@ -108,7 +108,7 @@ export default function Post({
       <UserContainer>
         <UserInfo>
           {profileImg ? (
-            <UserAvatar src={profileImg} />
+            <UserAvatar src={profileImg} referrerPolicy="no-referrer" />
           ) : (
             <UserIcon
               fill="currentColor"
@@ -162,12 +162,7 @@ export default function Post({
           setIsEdit={setIsEdit}
         />
       ) : null}
-      <Media
-        userId={userId}
-        id={id}
-        bookmarkedList={bookmarkedList}
-        likedList={likedList}
-      />
+      <Media id={id} bookmarkedList={bookmarkedList} likedList={likedList} />
     </List>
   );
 }

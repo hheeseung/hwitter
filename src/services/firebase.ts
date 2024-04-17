@@ -84,7 +84,7 @@ type UpdateUserProfile = {
 
 type MyPosts = {
   user: User;
-  setPosts: any;
+  setMyPosts: any;
 };
 
 type HandleInteraction = {
@@ -301,7 +301,7 @@ export async function updateUserProfile({
 }
 
 // 사용자 작성 게시물 불러오기
-export function getMyPosts({ user, setPosts }: MyPosts) {
+export function getMyPosts({ user, setMyPosts }: MyPosts) {
   let unsubscribe: Unsubscribe | null = null;
 
   const postsQuery = query(
@@ -335,7 +335,7 @@ export function getMyPosts({ user, setPosts }: MyPosts) {
         bookmarkedList,
       };
     });
-    setPosts(posts);
+    setMyPosts(posts);
   });
 
   return unsubscribe;

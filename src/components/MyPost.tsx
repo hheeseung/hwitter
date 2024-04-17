@@ -1,10 +1,10 @@
 import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { TimelinePost, getMyPosts } from "../services/firebase";
+import { TimelinePost, getMyPosts, getPosts } from "../services/firebase";
 import Post from "./Post";
 import styled from "styled-components";
 
-const MyPosts = styled.ul`
+const Categories = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
@@ -17,13 +17,13 @@ const MyPosts = styled.ul`
   }
 `;
 
-const Category = styled.li`
+const Category = styled.li<{ $location?: string }>`
   width: fit-content;
   text-align: center;
   padding: 5px 10px;
-  &:first-child {
-    border-bottom: 3px solid #1877f2;
-  }
+  cursor: pointer;
+  border-bottom: ${(props) =>
+    props.$location === props.id ? "2px solid #1877f2" : "none"};
 `;
 
 const Posts = styled.ul`
@@ -36,14 +36,34 @@ const Posts = styled.ul`
 `;
 
 const Empty = styled.p`
+  margin-top: 10px;
   text-align: center;
 `;
 
 export default function MyPost({ user }: { user: User }) {
   const [posts, setPosts] = useState<TimelinePost[]>([]);
+  const [myPosts, setMyPosts] = useState<TimelinePost[]>([]);
+  const [location, setLocation] = useState("posts");
+
+  const myLikes = posts.filter((post) => post.likedList.includes(user.uid));
+  const myBookmarks = posts.filter((post) =>
+    post.bookmarkedList.includes(user.uid)
+  );
+
+  const onCategoryClick = (e: React.MouseEvent<HTMLElement>) => {
+    const category = e.currentTarget.id;
+    setLocation(category);
+  };
 
   useEffect(() => {
-    const unsubscribe = getMyPosts({ user, setPosts });
+    const unsubscribe = getPosts(setPosts);
+    return () => {
+      unsubscribe && unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = getMyPosts({ user, setMyPosts });
     return () => {
       unsubscribe && unsubscribe();
     };
@@ -51,21 +71,44 @@ export default function MyPost({ user }: { user: User }) {
 
   return (
     <>
-      <MyPosts>
-        <Category>Posts</Category>
-        <Category>Likes</Category>
-        <Category>Bookmarks</Category>
-        <Category>Comments</Category>
-      </MyPosts>
-      {posts.length !== 0 ? (
+      <Categories>
+        <Category $location={location} onClick={onCategoryClick} id="posts">
+          Posts
+        </Category>
+        <Category $location={location} onClick={onCategoryClick} id="likes">
+          Likes
+        </Category>
+        <Category $location={location} onClick={onCategoryClick} id="bookmarks">
+          Bookmarks
+        </Category>
+        <Category onClick={onCategoryClick} id="comments">
+          Comments
+        </Category>
+      </Categories>
+      {location === "posts" && myPosts.length !== 0 && (
         <Posts>
-          {posts.map((post) => (
-            <Post key={post.id} {...post} />
+          {myPosts.map((myPost) => (
+            <Post key={myPost.id} {...myPost} />
           ))}
         </Posts>
-      ) : (
-        <Empty>아직 작성된 포스트가 없습니다.</Empty>
       )}
+      {location === "likes" && myLikes.length !== 0 && (
+        <Posts>
+          {myLikes.map((like) => (
+            <Post key={like.id} {...like} />
+          ))}
+        </Posts>
+      )}
+      {location === "bookmarks" && myBookmarks.length !== 0 && (
+        <Posts>
+          {myBookmarks.map((bookmark) => (
+            <Post key={bookmark.id} {...bookmark} />
+          ))}
+        </Posts>
+      )}
+      {/* {myPosts.length === 0 ||
+        myLikes.length === 0 ||
+        (myBookmarks.length === 0 && <Empty>아직 게시물이 없습니다.</Empty>)} */}
     </>
   );
 }

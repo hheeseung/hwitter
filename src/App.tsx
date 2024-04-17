@@ -12,6 +12,7 @@ import { auth } from "./services/firebase";
 import ResetPassword from "./pages/ResetPassword";
 import Loading from "./components/Loading";
 import Photos from "./pages/Photos";
+import "./App.css";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  
   * {
     box-sizing: border-box;
   }

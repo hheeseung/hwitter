@@ -4,6 +4,7 @@ import { useState } from "react";
 import PostManage from "./PostManage";
 import EditForm from "./EditForm";
 import Media from "./Media";
+import { Link } from "react-router-dom";
 
 const List = styled.li`
   width: 100%;
@@ -150,10 +151,12 @@ export default function Post({
           ) : null}
         </Dropdown>
       </UserContainer>
-      <PostContainer>
-        <Text>{post}</Text>
-        {photo && <AttachedImg src={photo} />}
-      </PostContainer>
+      <Link to={`/${id}`}>
+        <PostContainer>
+          <Text>{post}</Text>
+          {photo && <AttachedImg src={photo} />}
+        </PostContainer>
+      </Link>
       {isEdit ? (
         <EditForm
           userId={userId}

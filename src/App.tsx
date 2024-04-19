@@ -13,6 +13,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Loading from "./components/Loading";
 import Photos from "./pages/Photos";
 import "./App.css";
+import Detail from "./pages/Detail";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "/:postId",
+        element: <Detail />,
       },
       {
         path: "/photos",
@@ -63,6 +68,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: #eff4fc;
     max-width: 1280px;
     margin: 0 auto;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
   }
   button {
     font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

@@ -35,10 +35,10 @@ const Posts = styled.ul`
   }
 `;
 
-const Empty = styled.p`
-  margin-top: 10px;
-  text-align: center;
-`;
+// const Empty = styled.p`
+//   margin-top: 10px;
+//   text-align: center;
+// `;
 
 export default function MyPost({ user }: { user: User }) {
   const [posts, setPosts] = useState<TimelinePost[]>([]);
@@ -85,6 +85,7 @@ export default function MyPost({ user }: { user: User }) {
           Comments
         </Category>
       </Categories>
+      {/* 중복 코드에 대한 개선 필요!! */}
       {location === "posts" && myPosts.length !== 0 && (
         <Posts>
           {myPosts.map((myPost) => (

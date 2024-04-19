@@ -28,7 +28,7 @@ const Liked = styled.div`
 `;
 
 const LikedCount = styled.span`
-  margin-left: 2px;
+  margin-left: 5px;
   font-size: 15px;
 `;
 
@@ -92,6 +92,7 @@ export default function Media({ id, bookmarkedList, likedList }: MediaProps) {
           <MediaIcon
             onClick={onLikeClick}
             fill="#ff4154"
+            stroke="#ff4154"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
@@ -124,6 +125,7 @@ export default function Media({ id, bookmarkedList, likedList }: MediaProps) {
         <MediaIcon
           onClick={onBookmarkClick}
           fill="#1877f2"
+          stroke="#1877f2"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"

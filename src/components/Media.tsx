@@ -12,6 +12,8 @@ type MediaProps = {
   id: string;
   bookmarkedList: string[];
   likedList: string[];
+  setLikes?: any;
+  setBookmarks?: any;
 };
 
 const MediaContainer = styled.div`

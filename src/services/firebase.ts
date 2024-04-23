@@ -23,6 +23,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -90,6 +91,25 @@ type MyPosts = {
 type HandleInteraction = {
   id: string;
   userId: string;
+};
+
+type AddComment = {
+  id: string;
+  username: string;
+  userId: string;
+  profileImg?: string | null;
+  comment: string;
+};
+
+type UpdateComment = {
+  commentId: string;
+  postId: string;
+  comment: string;
+};
+
+type DeleteComment = {
+  postId: string;
+  commentId: string;
 };
 
 const firebaseConfig = {
@@ -237,7 +257,7 @@ export async function updatePost({ postId, post }: UpdatePost) {
   try {
     await updateDoc(postRef, updateData);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -250,7 +270,7 @@ export async function deletePost({ userId, id, photo }: DeletePost) {
       await deleteObject(photoRef);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -371,4 +391,78 @@ export async function removeBookmarks({ id, userId }: HandleInteraction) {
   await updateDoc(bookmarkRef, {
     bookmarkedList: arrayRemove(userId),
   });
+}
+
+// 댓글 추가하기
+export async function addComment({
+  id,
+  username,
+  userId,
+  profileImg,
+  comment,
+}: AddComment) {
+  const reqData = {
+    comment,
+    createdAt: Date.now(),
+    username,
+    userId,
+    profileImg,
+  };
+
+  const commentsRef = doc(collection(db, "posts", id, "comments"));
+  await setDoc(commentsRef, reqData);
+}
+
+// 게시물에 달린 댓글 불러오기
+export function getComments(postId: string, setComments: any) {
+  let unsubscribe: Unsubscribe | null = null;
+
+  const commentsQuery = query(
+    collection(db, "posts", postId, "comments"),
+    orderBy("createdAt", "desc")
+  );
+
+  unsubscribe = onSnapshot(commentsQuery, (snapshot) => {
+    const comments = snapshot.docs.map((doc) => {
+      const { comment, createdAt, username, userId, profileImg } = doc.data();
+      return {
+        id: doc.id,
+        comment,
+        createdAt,
+        username,
+        userId,
+        profileImg,
+      };
+    });
+    setComments(comments);
+  });
+
+  return unsubscribe;
+}
+
+// 댓글 수정
+export async function updateComment({
+  commentId,
+  postId,
+  comment,
+}: UpdateComment) {
+  const commentRef = doc(db, "posts", postId, "comments", commentId);
+  const updateData = {
+    comment,
+  };
+
+  try {
+    await updateDoc(commentRef, updateData);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// 댓글 삭제
+export async function deleteComment({ postId, commentId }: DeleteComment) {
+  try {
+    await deleteDoc(doc(db, "posts", postId, "comments", commentId));
+  } catch (error) {
+    console.error(error);
+  }
 }

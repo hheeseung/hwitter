@@ -90,7 +90,7 @@ export default function EditForm({
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user || user.uid !== userId || newPost === "" || newPost.length > 300)
+    if (!user || user.uid !== userId || newPost === "" || newPost.length > 500)
       return;
     try {
       setIsLoading(true);

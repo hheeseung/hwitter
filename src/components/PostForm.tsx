@@ -45,7 +45,7 @@ export default function PostForm() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!user || post === "" || post.length > 300) return;
+    if (!user || post === "" || post.length > 500) return;
 
     try {
       setIsLoading(true);

@@ -1,86 +1,24 @@
-import styled from "styled-components";
 import { TimelinePost, auth } from "../services/firebase";
 import { useState } from "react";
 import PostManage from "./PostManage";
 import EditForm from "./EditForm";
-import Media from "./Media";
 import { Link } from "react-router-dom";
-
-const List = styled.li`
-  width: 100%;
-  background-color: white;
-  padding: 20px 20px 0 20px;
-  margin-top: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-`;
-
-const UserContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const UserAvatar = styled.img`
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 10px;
-`;
-
-const UserIcon = styled.svg`
-  width: 50px;
-  padding: 5px;
-  fill: #1877f2;
-  background-color: #eff4fc;
-  border-radius: 10px;
-`;
-
-const Metadata = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-`;
-
-const Username = styled.span`
-  font-weight: 600;
-`;
-
-const CreatedTime = styled.span`
-  margin-top: 5px;
-  font-size: small;
-  color: gray;
-`;
-
-const Dropdown = styled.div`
-  position: relative;
-  cursor: pointer;
-`;
-
-const DropdownIcon = styled.svg`
-  width: 30px;
-  color: gray;
-`;
-
-const PostContainer = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Text = styled.p`
-  margin-bottom: 20px;
-  line-height: 1.3;
-`;
-
-const AttachedImg = styled.img`
-  width: 100%;
-  border-radius: 10px;
-`;
+import {
+  AttachedImg,
+  CreatedTime,
+  Dropdown,
+  DropdownIcon,
+  List,
+  Metadata,
+  PostContainer,
+  Text,
+  UserAvatar,
+  UserContainer,
+  UserIcon,
+  UserInfo,
+  Username,
+} from "./style/PostComponent";
+import Media from "./Media";
 
 export default function Post({
   id,
@@ -151,7 +89,19 @@ export default function Post({
           ) : null}
         </Dropdown>
       </UserContainer>
-      <Link to={`/${id}`}>
+      <Link
+        to={`/${id}`}
+        state={{
+          id,
+          profileImg,
+          photo,
+          username,
+          post,
+          createdTime,
+          likedList,
+          bookmarkedList,
+        }}
+      >
         <PostContainer>
           <Text>{post}</Text>
           {photo && <AttachedImg src={photo} />}

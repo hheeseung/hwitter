@@ -223,30 +223,6 @@ export function getPosts(setPosts: any) {
   return unsubscribe;
 }
 
-// 사진 목록 불러오기
-export function getPhotos(setPhotos: any) {
-  let unsubscribe: Unsubscribe | null = null;
-
-  const photosQuery = query(
-    collection(db, "posts"),
-    orderBy("createdAt", "desc"),
-    limit(30)
-  );
-
-  unsubscribe = onSnapshot(photosQuery, (snapshot) => {
-    const photos = snapshot.docs.map((doc) => {
-      const { photo } = doc.data();
-      return {
-        photo,
-        id: doc.id,
-      };
-    });
-    setPhotos(photos);
-  });
-
-  return unsubscribe;
-}
-
 // 게시물 수정
 export async function updatePost({ postId, post }: UpdatePost) {
   const postRef = doc(db, "posts", postId);

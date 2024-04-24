@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getPhotos } from "../services/firebase";
+import { TimelinePost, getPosts } from "../services/firebase";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 type Photo = {
   id: string;
@@ -47,14 +48,14 @@ const Photo = styled.img`
 const NoPhotos = styled.p``;
 
 export default function Photos() {
-  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [photos, setPhotos] = useState<TimelinePost[]>([]);
 
   const allPhotosAreUndefined = photos.every(
     (photo) => photo.photo === undefined
   );
 
   useEffect(() => {
-    const unsubscribe = getPhotos(setPhotos);
+    const unsubscribe = getPosts(setPhotos);
     return () => {
       unsubscribe && unsubscribe();
     };
@@ -68,7 +69,24 @@ export default function Photos() {
         photos.map(
           (photo) =>
             photo.photo !== undefined && (
-              <Photo key={photo.id} src={photo.photo} alt="photo" />
+              <Link
+                key={photo.id}
+                to={`/${photo.id}`}
+                state={{
+                  id: photo.id,
+                  profileImg: photo.profileImg,
+                  photo: photo.photo,
+                  username: photo.username,
+                  post: photo.post,
+                  createdTime: new Date(photo.createdAt).toLocaleString(
+                    "ko-KR"
+                  ),
+                  likedList: photo.likedList,
+                  bookmarkedList: photo.bookmarkedList,
+                }}
+              >
+                <Photo src={photo.photo} alt="photo" />
+              </Link>
             )
         )
       )}

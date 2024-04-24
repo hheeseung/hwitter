@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Categories = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   place-items: center;
   width: 100%;
   font-size: 17px;
@@ -80,9 +80,6 @@ export default function MyPost({ user }: { user: User }) {
         </Category>
         <Category $location={location} onClick={onCategoryClick} id="bookmarks">
           Bookmarks
-        </Category>
-        <Category onClick={onCategoryClick} id="comments">
-          Comments
         </Category>
       </Categories>
       {/* 중복 코드에 대한 개선 필요!! */}

@@ -407,6 +407,7 @@ export async function addComment({
     username,
     userId,
     profileImg,
+    likes: [],
   };
 
   const commentsRef = doc(collection(db, "posts", id, "comments"));
@@ -424,7 +425,8 @@ export function getComments(postId: string, setComments: any) {
 
   unsubscribe = onSnapshot(commentsQuery, (snapshot) => {
     const comments = snapshot.docs.map((doc) => {
-      const { comment, createdAt, username, userId, profileImg } = doc.data();
+      const { comment, createdAt, username, userId, profileImg, likes } =
+        doc.data();
       return {
         id: doc.id,
         comment,
@@ -432,6 +434,7 @@ export function getComments(postId: string, setComments: any) {
         username,
         userId,
         profileImg,
+        likes,
       };
     });
     setComments(comments);
@@ -465,4 +468,34 @@ export async function deleteComment({ postId, commentId }: DeleteComment) {
   } catch (error) {
     console.error(error);
   }
+}
+
+type HandleCommentInteraction = {
+  postId: string;
+  commentId: string;
+  userId: string;
+};
+
+// 댓글 좋아요 추가
+export async function addCommentLikes({
+  postId,
+  commentId,
+  userId,
+}: HandleCommentInteraction) {
+  const likeRef = doc(db, "posts", postId, "comments", commentId);
+  await updateDoc(likeRef, {
+    likes: arrayUnion(userId),
+  });
+}
+
+// 댓글 좋아요 취소
+export async function removeCommentLikes({
+  postId,
+  commentId,
+  userId,
+}: HandleCommentInteraction) {
+  const likeRef = doc(db, "posts", postId, "comments", commentId);
+  await updateDoc(likeRef, {
+    likes: arrayRemove(userId),
+  });
 }

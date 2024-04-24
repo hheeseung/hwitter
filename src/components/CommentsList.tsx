@@ -10,6 +10,7 @@ export type Comments = {
   username: string;
   userId: string;
   profileImg: string;
+  likes: string[];
 };
 
 const Comments = styled.ul``;
@@ -35,7 +36,17 @@ export default function CommentsList({ postId }: { postId: string }) {
     <Comments>
       <Title>{comments.length} Comments</Title>
       {comments.map((comment) => (
-        <Comment key={comment.id} postId={postId} {...comment} />
+        <Comment
+          key={comment.id}
+          id={comment.id}
+          postId={postId}
+          comment={comment.comment}
+          createdAt={comment.createdAt}
+          username={comment.username}
+          userId={comment.userId}
+          profileImg={comment.profileImg}
+          likes={comment.likes}
+        />
       ))}
     </Comments>
   );

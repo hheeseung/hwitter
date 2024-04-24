@@ -18,6 +18,7 @@ const PhotoGrid = styled.main`
   border-radius: 10px;
   @media only screen and (max-width: 768px) {
     width: 100%;
+    padding: 0 10px;
     background-color: inherit;
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 80px;
@@ -37,7 +38,7 @@ const Photo = styled.img`
     transition: all linear 0.2s;
   }
   @media only screen and (max-width: 768px) {
-    height: 200px;
+    width: 100%;
     &:hover {
       transform: none;
       transition: none;

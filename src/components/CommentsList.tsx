@@ -36,17 +36,7 @@ export default function CommentsList({ postId }: { postId: string }) {
     <Comments>
       <Title>{comments.length} Comments</Title>
       {comments.map((comment) => (
-        <Comment
-          key={comment.id}
-          id={comment.id}
-          postId={postId}
-          comment={comment.comment}
-          createdAt={comment.createdAt}
-          username={comment.username}
-          userId={comment.userId}
-          profileImg={comment.profileImg}
-          likes={comment.likes}
-        />
+        <Comment key={comment.id} postId={postId} {...comment} />
       ))}
     </Comments>
   );

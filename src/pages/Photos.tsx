@@ -12,8 +12,8 @@ const PhotoGrid = styled.main`
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  place-items: center;
   gap: 10px;
-  padding: 15px;
   border-radius: 10px;
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -25,7 +25,7 @@ const PhotoGrid = styled.main`
 `;
 
 const Photo = styled.img`
-  width: 100%;
+  width: 200px;
   height: 200px;
   object-fit: cover;
   border-radius: 10px;

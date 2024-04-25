@@ -17,10 +17,10 @@ Nomad Coders에서 트위터 클론코딩 컨테스트가 열리는 것을 알�
 
 ## 🛠 사용 기술
 
-✅ Frontend: `React.js` `TypeScript` `React-Router-DOM` `Styled-Components`
-✅ Backend: `Firebase`
-✅ Build: `Vite`
-✅ Deploy: `Firebase Hosting`
+✅ Frontend: `React.js` `TypeScript` `React-Router-DOM` `Styled-Components` <br />
+✅ Backend: `Firebase` <br />
+✅ Build: `Vite` <br />
+✅ Deploy: `Firebase Hosting` <br />
 
 ## ⚙ 기능 소개
 

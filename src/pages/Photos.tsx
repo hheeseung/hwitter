@@ -3,11 +3,6 @@ import { TimelinePost, getPosts } from "../services/firebase";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-type Photo = {
-  id: string;
-  photo: string;
-};
-
 const PhotoGrid = styled.main`
   width: 50%;
   height: fit-content;

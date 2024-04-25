@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TimelinePost, getMyPosts, getPosts } from "../services/firebase";
 import Post from "./Post";
 import styled from "styled-components";
@@ -35,11 +35,6 @@ const Posts = styled.ul`
   }
 `;
 
-// const Empty = styled.p`
-//   margin-top: 10px;
-//   text-align: center;
-// `;
-
 export default function MyPost({ user }: { user: User }) {
   const [posts, setPosts] = useState<TimelinePost[]>([]);
   const [myPosts, setMyPosts] = useState<TimelinePost[]>([]);
@@ -69,6 +64,19 @@ export default function MyPost({ user }: { user: User }) {
     };
   }, []);
 
+  const selectedPosts = useMemo(() => {
+    switch (location) {
+      case "posts":
+        return myPosts;
+      case "likes":
+        return myLikes;
+      case "bookmarks":
+        return myBookmarks;
+      default:
+        return [];
+    }
+  }, [location, myPosts, myLikes, myBookmarks]);
+
   return (
     <>
       <Categories>
@@ -82,31 +90,10 @@ export default function MyPost({ user }: { user: User }) {
           Bookmarks
         </Category>
       </Categories>
-      {/* 중복 코드에 대한 개선 필요!! */}
-      {location === "posts" && myPosts.length !== 0 && (
-        <Posts>
-          {myPosts.map((myPost) => (
-            <Post key={myPost.id} {...myPost} />
-          ))}
-        </Posts>
-      )}
-      {location === "likes" && myLikes.length !== 0 && (
-        <Posts>
-          {myLikes.map((like) => (
-            <Post key={like.id} {...like} />
-          ))}
-        </Posts>
-      )}
-      {location === "bookmarks" && myBookmarks.length !== 0 && (
-        <Posts>
-          {myBookmarks.map((bookmark) => (
-            <Post key={bookmark.id} {...bookmark} />
-          ))}
-        </Posts>
-      )}
-      {/* {myPosts.length === 0 ||
-        myLikes.length === 0 ||
-        (myBookmarks.length === 0 && <Empty>아직 게시물이 없습니다.</Empty>)} */}
+      <Posts>
+        {selectedPosts.length > 0 &&
+          selectedPosts.map((post) => <Post key={post.id} {...post} />)}
+      </Posts>
     </>
   );
 }

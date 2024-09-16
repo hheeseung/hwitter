@@ -250,11 +250,6 @@ export async function deletePost({ userId, id, photo }: DeletePost) {
   }
 }
 
-export type CurrentUser = {
-  user: User;
-  setUserInfo: any;
-};
-
 // 사용자 프로필 업데이트
 export async function updateUserProfile({
   user,
@@ -274,9 +269,11 @@ export async function updateUserProfile({
     const result = await uploadBytes(locationRef, file);
     const avatarURL = await getDownloadURL(result.ref);
     setAvatar(avatarURL);
+
     await updateProfile(user, {
       photoURL: avatarURL,
     });
+
     for (const item of snapshot.docs) {
       await updateDoc(doc(db, "posts", item.id), {
         profileImg: avatarURL,
@@ -288,6 +285,7 @@ export async function updateUserProfile({
     await updateProfile(user, {
       displayName: newUsername,
     });
+
     for (const item of snapshot.docs) {
       await updateDoc(doc(db, "posts", item.id), {
         username: newUsername,
